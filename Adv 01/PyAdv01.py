@@ -7,7 +7,7 @@
   Partner 1 Name: Kael Secrest
   Partner 1 Contributions: Code parts 1-3
 
-  Partner 2 Name: 
+  Partner 2 Name: William Rainey
   Partner 2 Contributions: Story, code part 4-5
    
       
@@ -46,7 +46,7 @@ HyperTravelRate = PayRate * 0.1833
 # Make it 3-5 sentences
 print("Welcome to Galactic HR Systems!")
 print("You have been hired as a new employee in the weapons department.", "\n", "You job is to help create new weapons for the United States of the Galactic.", "\n", "To get started we need to create your employee ID and calculate your pay rates.") 
-print("Your office is located in building 6 level 7.")
+print("Your ship hanger is building 6 level 7.")
 
 # ------------------ Part 2: HR System  ----------------------------
 # TODO: prompt the user for name, tempID, sector number and planet
@@ -67,22 +67,24 @@ IDNum = SectorNum + TempIDNum + SectorNum + str(BackID) + str(CheckSum)
 # ------------------ Part 4: Output Employee HR Report ----------------------------
 # TODO: output an HR report with employee information and payrates
 # make sure all columns line up
+print("\n")
+print("HIL Q.U.A. Report".center(47))
 print("=" * 47)
-print(f"| {'Employee ID:':<16} {IDNum:>25} |")
-print(f"| {'Name:':<16} {UseName:>25} |")
-print(f"| {'Sector Number:':<16} {SectorNum:>25} |")
-print(f"| {'Planet Name:':<16} {PlanetName:>25} |")
-print(f"| {'CheckSum:':<16} {CheckSum:>25} |")
+print(f"| {'Employee ID:':<16} {IDNum:>26} {'|':>1}")
+print(f"| {'Name:':<16} {UseName:>26} {'|':>1}")
+print(f"| {'Sector Number:':<16} {SectorNum:>26} {'|':>1}")
+print(f"| {'Planet Name:':<16} {PlanetName:>26} {'|':>1}")
+print(f"| {'CheckSum:':<16} {CheckSum:>26} {'|':>1}")
 print("=" * 47)
 
 print("Pay Rates".center(47))
 
 print("=" * 47)
-print(f"| {'Day Rate:':<16} {PayRate:>25.1f} Cr. |")
-print(f"| {'Weekend Rate:':<16} {WeekendRate:>25.1f} Cr. |")
-print(f"| {'Overtime Rate:':<16} {OvertimeRate:>25.1f} Cr. |")
-print(f"| {'Sub Travel:':<16} {SubTravelRate:>25.1f} Cr. |")
-print(f"| {'Hyper Travel:':<16} {HyperTravelRate:>25.1f} Cr. |")
+print(f"| {'Day Rate:':<16} {PayRate:>22.1f} {'Cr. |':>2}")
+print(f"| {'Weekend Rate:':<16} {WeekendRate:>22.1f} {'Cr. |':>1}")
+print(f"| {'Overtime Rate:':<16} {OvertimeRate:>22.1f} {'Cr. |':>1}")
+print(f"| {'Sub Travel:':<16} {SubTravelRate:>22.1f} {'Cr. |':>1}")
+print(f"| {'Hyper Travel:':<16} {HyperTravelRate:>22.1f} {'Cr. |':>1}")
 print("=" * 47)
 
 # ------------------ Part 5: Closing  ----------------------------
