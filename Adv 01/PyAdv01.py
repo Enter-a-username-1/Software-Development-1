@@ -45,7 +45,9 @@ HyperTravelRate = PayRate * 0.1833
 # TODO: Display a short narrative introducing the situation
 # Make it 3-5 sentences
 print("Welcome to Galactic HR Systems!")
-print("You have been hired as a new employee in the weapons department.", "\n", "You job is to help create new weapons for the United States of the Galactic.", "\n", "To get started we need to create your employee ID and calculate your pay rates.") 
+print("You have been hired as a new employee in the weapons department.")
+print("You job is to helpcreate new weapons for the United States of the Galactic.")
+print("To get started we need to create your employee ID and calculate your pay rates.") 
 print("Your ship hanger is building 6 level 7.")
 
 # ------------------ Part 2: HR System  ----------------------------
@@ -55,7 +57,7 @@ TempIDNum = str(input("Enter your temporary ID: "))
 SectorNum = input("Enter your sector number: ")
 PlanetName = input("Enter your planet name: ")
 
-# ------------------ Part 3: Create Employee ID and calculate pay rates  ----------------------------
+# ------------------ Part 3: Create Employee ID and calculate pay rates  --------------------------
 # TODO: convert 4 digit temporary ID to 11 digit employee ID
 # TODO: Calculate pay rates for day, weekend, overtime, subspace and hyperspace
 BackID = TempIDNum[3] + TempIDNum[2] + TempIDNum[1] + TempIDNum[0]
@@ -67,7 +69,7 @@ IDNum = SectorNum + TempIDNum + SectorNum + str(BackID) + str(CheckSum)
 # ------------------ Part 4: Output Employee HR Report ----------------------------
 # TODO: output an HR report with employee information and payrates
 # make sure all columns line up
-print("\n")
+print("")
 print("HIL Q.U.A. Report".center(47))
 print("=" * 47)
 print(f"| {'Employee ID:':<16} {IDNum:>26} {'|':>1}")
@@ -89,7 +91,7 @@ print("=" * 47)
 
 # ------------------ Part 5: Closing  ----------------------------
 # TODO: Display 2-3 sentences wrapping up the lab story
-print("Scary scenses are happening all around you, right now. Good thing You have made the most important decision of your life joining the GUS." )
+print("Scary scenes are happening all around the universe, right now. Good thing You have made the most important decision of your life joining the GUS." )
 print("You are now apart of an elite peace keeping force. You are helping spread managed democracy through the galaxy. You are now a hero, a legend. ")
 print("Welcome to the team,", UseName + ".", "\n")
-print("Now that you have your ID and pay rates, you're ready to start working on new weapons for the Galactic United States.")  
+print("Now that you have your ID and pay rates, you're ready to start working on new weapons for the Galactic United States.")
