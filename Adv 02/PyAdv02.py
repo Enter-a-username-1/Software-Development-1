@@ -34,7 +34,7 @@ import math
 # TODO: Constants.  Make sure the variables are ALLCAPS
 INTERN = "John Helldiver"
 COMPANYNAME = "Galatic United States"
-INTERNID = "998877"
+INTERNID = "5123454321"
 BEACON_ID = "Eagle-2132"
 
 # ------------------ Part 2: Introductory Narrative ----------------------------
@@ -58,8 +58,10 @@ print(f"Badge ID {input_id} accepted. Welcome to the {COMPANYNAME} orbital beaco
 print(f"Hello intern {INTERN}, and your task is to analyze incoming beacon data.")
 print("")
 print("HR has left you the following note:")
-print(f"We need help analyzing the beacon data from {BEACON_ID} that is currently orbiting Melevlon Creek.")
-print("Soldiers on the battlefiled below need the beacon to find their location on their Galactic War Map.")
+print(f"We need help analyzing the beacon data from {BEACON_ID}")
+print(f"The Beacon {BEACON_ID} is currently orbiting Melevlon Creek.")
+print("Soldiers on the battlefiled below need infomation from the beacon.")
+print("This is so they can find their location on their Galactic War Map.")
 
 # ------------------ Part 3: Drift Angle ----------------------------
 # TODO: Calculate drift angle and determine drift status
@@ -85,20 +87,39 @@ else:
 # ------------------ Part 4: Signal Degradation ----------------------------
 # TODO: Calculate degradation and determine signal status
 
+# input for initial and final signal strength
+initialSignalStrength = float(input("Enter the initial signal strength (in dB): "))
+finalSignalStrength = float(input("Enter the final signal strength (in dB): "))
 
-
+# calculate signal degradation
+signalDegradation = 10 * math.log10(initialSignalStrength / finalSignalStrength) 
+if -3 < signalDegradation < 0:
+    signalStatus = "Minimal"
+elif -10 < signalDegradation <= -3:
+    signalStatus = "Moderate"
+elif -10 <= signalDegradation < -20:
+    signalStatus = "Severe"
+else:
+    signalStatus = "Critical"
 
 # ------------------ Part 5: Beacon Report ----------------------------
 # TODO: Print beacon report
-
-
-
+print("=" * 40)
+print(f"{BEACON_ID} Beacon Report".center(40))
+print("=" * 40)
+print(f"  Technician:{INTERN:>25}")
+print(f"  Employee ID:{INTERNID:>23}")
+print("=" * 40)
+print(f"  Drift Angle:{driftAngle:>24.3f} deg")
+print(f"  Drift Status:{driftStatus.upper():>22}")
+print("=" * 40)
+print(f"  Signal Degradation:{signalDegradation:>18.4f} dB")
+print(f"  Signal Status:{signalStatus.upper():>21}")
+print("=" * 40)
 
 # ------------------ Part 6: Closing Narrative ----------------------------
 # TODO: Display 2-3 sentences wrapping up the lab story
-print("Analysis complete. Beacon data has been logged and reported to the defense team.")
-print("Orbitals and Galatic War Maps are back online and functioning within normal parameters.")
-print("Good work, intern John Helldiver! You have successfully aided managed democracy.")
-
-
-
+print("Analysis complete. Beacon data has been logged and reported to the Service Technician.")
+print("Orbitals and Galatic War Maps are coming back online and functioning within normal " \
+"parameters.")
+print(f"Good work, intern {INTERN}. You have successfully aided managed democracy.")
