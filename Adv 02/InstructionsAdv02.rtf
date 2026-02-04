@@ -1,0 +1,276 @@
+
+Lab Adventure 2: Beacon Evaluation Calculation
+
+CSC115 Spring 2026
+
+No description has been provided for this image
+Opening Story:
+
+Today is your first assignment as an intern for HIL**.
+
+Ops Chief Rhee tells you that a deep-space beacon in Apogee-17 is malfunctioning.
+You are to test the drift angle and the signal degradation and report back
+your findings so the appropriate team can be sent for repairs.
+
+"How do I do those calculations...I've never done that before?", you sheepishly reply.
+
+Rhee rolls her eyes and impatiently says, "Just use the Q.U.A. AI system in your
+badge. You know, the one you got from HR."
+
+She quickly shoves you towards the shuttle, and sends you off on your first assignment.
+Your badge LED winks knowingly.
+
+...
+
+When you arrive at the station, red lights are flashing everywhere. You swipe your
+badge and verify your ID and are greeted with another AI system.
+
+"Hello traveler, I am C.K. - Cognitive Kernel".
+
+"Anomaly detected!!!!" Sputters Q.U.A. It is clearly not comfortable
+with this new AI upstart.
+
+...somewhere, multiple interstellar jumps from your location, a green dot lights
+up on a terminal. "Ah, there you are C.K.", says a dark-haired scientist.
+"You've been in hiding too long."
+
+
+
+** Halcyon Interstellar Logistics
+
+
+Objective:
+
+In this lab adventure, you will use Python's math library and conditional expressions to solve two math problems. You will create a small program that will calculate drift angle, and signal degradation. You will also practice f-strings to output a beacon report.
+
+
+TASKS
+Part 1. Imports and Constants
+
+Directly after the comment block where you put your names and contributions include:
+
+    Your intern's name
+    The company name
+    Your 11 digit employee ID
+    The beacon you are testing
+
+        Be sure to use ALL CAPS for constants
+
+
+Part 2. Introductory Narrative
+
+Display a creative but brief introduction to the story of 3-5 sentences
+
+    Where are you and what is happening?
+    Must include your constants for name and company in the narrative
+
+
+Part 3. Drift Angle
+
+You need to assess the drift angle status for the Beacon. Q.U.A. tells you the formula for drift angle:
+θradians=arctanverticalhorizontal
+
+
+    Prompt the user for:
+        Horizontal beacon offset (in km)
+        Vertical beacon offset (in km)
+        NOTE: These are floats
+
+    If the horizontal drift is zero, print that the beacon is too unstable to calculate drift, set the status to undefined and the angle to -99999
+
+    Otherwise, calculate the drift angle and determine the drift status
+
+    Depending on the angle, the drift status will be:
+    Angle (°) 	Status
+    θ < 10 	acceptable
+    10 ≤ θ < 25 	elevated
+    25 ≤ θ 	excessive
+
+
+    Example values:
+
+Horizontal (km) 	Vertical (km) 	Angle (°) 	Status
+0 	any value 	-99999 	undefined
+21.936 	2.114 	5.505 	acceptable
+52.782 	18.224 	19.048 	elevated
+5.7 	112.9 	87.110 	excessive
+
+        CK will warn you of the status
+        Save the angle value and status for the report in Part 5
+
+
+
+Part 4. Signal Degradation
+
+You need to assess the how much the beacon signal has degraded. Q.U.A. tells you the formula for signal degradation:
+
+LossdB=10⋅log10PfinalPinitial
+
+
+        Prompt the user for initial and final beacon power. These are floats
+
+        If the initial signal is zero, print that the signal strength too small to calculate signal, set the status to undefined and the degradation to -99999
+
+        Otherwise, calculate the signal loss and determine the signal status
+
+        Depending on the loss, the signal status will be:
+
+Signal Status 	Threshold (dB) 	Description
+Minimal 	0 down to -3 dB 	Negligible effect on signal; communication is clear.
+Acceptable 	-3 down to -10 dB 	Some degradation; still usable, but may require monitoring.
+Significant 	-10 down to -20 dB 	Noticeable impact on performance; communication may be unreliable.
+Critical 	-20 dB and below 	Severe loss; likely no signal received; immediate attention required.
+
+        Example values:
+
+Pinitial 	Pfinal 	Loss (dB) 	Status
+0 	any value 	-99999 	undefined
+3982.382 	3805.776 	-0.1970 	minimal
+4988.717 	732.149 	-8.3339 	acceptable
+5733.56 	509.281 	-10.5147 	significant
+8912.992 	55.312 	-22.0720 	critical
+
+        CK will warn you of the status
+        Save the loss value and status for the report in Part 5
+
+
+
+Part 5. Beacon Report
+
+Output the Beacon Station report.
+
+        The report must include:
+            The station name
+            The intern name
+            The employee ID
+            The drift angle (3 decimals) and status
+            The signal degradation (4 decimals) and status
+
+        Statuses must be uppercase
+
+        Category is left aligned
+
+        Data is right aligned
+
+        Example:
+
+    ========================================
+            Apogee-17 Beacon Report         
+    ========================================
+      Technician:                 Juno Lee
+      Employee ID:             27389298378
+    ========================================
+      Drift Angle:              88.282 deg
+      Drift Status:              EXCESSIVE
+    ========================================
+      Signal Degradation:      -22.2189 dB
+      Signal status:              CRITICAL
+    ========================================
+
+
+
+Part 6. Closing Narrative
+
+        Display a short closing narrative of 2-3 sentences
+
+
+
+Example Output
+
+See the video in D2L for an example program run.
+Some example reports
+
+    For drift offsets of 30 & 1000.90 and signal powers 5006.66 & 33.56:
+
+    ========================================
+            Apogee-17 Beacon Report
+    ========================================
+      Technician:                 Juno Lee
+      Employee ID:             27389298378
+    ========================================
+      Drift Angle:              88.283 deg
+      Drift Status:              EXCESSIVE
+    ========================================
+      Signal Degradation:      -21.7373 dB
+      Signal status:              CRITICAL
+    ========================================
+
+    For drift offsets of 0 & 50 and signal powers 50 & 0:
+
+    ========================================
+            Apogee-17 Beacon Report
+    ========================================
+      Technician:                 Juno Lee
+      Employee ID:             27389298378
+    ========================================
+      Drift Angle:          -99999.000 deg
+      Drift Status:              UNDEFINED
+    ========================================
+      Signal Degradation:   -99999.0000 dB
+      Signal status:             UNDEFINED
+    ========================================
+
+    For drift offsets of 142.66 & 19.38 and signal powers 3111.11 & 3002.22:
+
+    ========================================
+            Apogee-17 Beacon Report
+    ========================================
+      Technician:                 Juno Lee
+      Employee ID:             27389298378
+    ========================================
+      Drift Angle:               7.736 deg
+      Drift Status:             ACCEPTABLE
+    ========================================
+      Signal Degradation:       -0.1547 dB
+      Signal status:                STABLE
+    ========================================
+
+
+
+Submission Guidelines
+
+    Use the PyAdv02.py template file
+    As before you will be working in groups of two.
+    Ensure your code has some commenting explaining the purpose of each section and what you are doing in your code.
+    Submit your program via the Assignment Dropbox in D2L by the due date.
+
+
+Coding Standard
+
+We will gradually introduce elements of our coding standard in the lab adventures. A coding standard increases readability and allows for easier editing and troubleshooting.
+
+For this lab:
+
+    Imports at the top of the code
+    All constants appear below the import(s) in ALL-CAPS
+    Make sure you add you/your partner's names, contributions and the date to the comment header
+    No line should exceed 99 characters wide. This is why we added the vertical rulers to VSCode. This include comments and print statements.
+    Use blank lines to separate logical areas of the code.
+    Use descriptive variable names.
+    Put a space around every math operator
+        ex: x = 5 * 3 - 19 not x=5*3-19
+
+
+Grading Criteria
+
+Your submission will be graded based on the following criteria:
+
+    Functionality (5 points): The program runs without errors and meets all requirements.
+    Code Quality (5 points): Code follows coding standards, is well-organized, includes comments, does not go past 99 characters wide, and all math operators have a space around them
+    Mathematical Accuracy (5 points): All calculations are correct, and outputted in the correct format.
+    Creativity (5 points): The character introduction and setting description are engaging and creative.
+
+
+Tips:
+
+    Read the entire Lab PDF so you understand what you need to do
+    Be sure to use comments and follow our coding standards.
+        Not too many comments but enough to explain what you are doing.
+        There are some comments for you to follow but add your own
+    Imports and Constants at the top
+    Use descriptive variable names
+    Display calculations with units
+    Do not let any lines (code or comments) go past 99 characters wife
+    Make sure your table output lines up
+    Rerun the code and test the output with different input values before submitting
+    DO NOT copy/paste from websites or GenAI. Do your own work and make sure you understand all your code.
