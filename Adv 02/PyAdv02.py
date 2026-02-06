@@ -73,7 +73,7 @@ horizontalOffset = float(input("Enter the horizontal offset of the beacon (in km
 verticalOffset = float(input("Enter the vertical offset of the beacon (in km): "))
 driftAngle = math.degrees(math.atan2(verticalOffset, horizontalOffset))
 
-# check if drift status is critical
+# check drift status
 if horizontalOffset == 0 or verticalOffset == 0:
     driftStatus = "Undefined"
     driftAngle = -99999
@@ -132,4 +132,5 @@ print("Orbitals and Galatic War Maps are coming back online and functioning with
 print(f"Good work, intern {INTERN}. You have successfully aided managed democracy.")
 print("Victory was never in doubt.")
 print("FOR SUPER EARTH!!!")
+print("")
 print("End of Report.")
