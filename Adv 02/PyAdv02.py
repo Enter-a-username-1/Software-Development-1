@@ -6,10 +6,10 @@
   Date:2/2/2026
 
   Partner 1 Name: Kael Secrest
-  Partner 1 Contributions: Code Parts 1, 2
+  Partner 1 Contributions: Code Parts 2, 3, 5
 
-  Partner 2 Name: 
-  Partner 2 Contributions: 
+  Partner 2 Name: Will Rainey
+  Partner 2 Contributions: Code Parts 1, 4, 6
    
       
       
@@ -74,7 +74,10 @@ verticalOffset = float(input("Enter the vertical offset of the beacon (in km): "
 driftAngle = math.degrees(math.atan2(verticalOffset, horizontalOffset))
 
 # check if drift status is critical
-if driftAngle < 10:
+if horizontalOffset == 0 or verticalOffset == 0:
+    driftStatus = "Undefined"
+    driftAngle = -99999
+elif driftAngle < 10:
     driftStatus = "Acceptable"
 elif 10 <= driftAngle <= 20:
     driftStatus = "Elevated"
@@ -92,30 +95,34 @@ initialSignalStrength = float(input("Enter the initial signal strength (in dB): 
 finalSignalStrength = float(input("Enter the final signal strength (in dB): "))
 
 # calculate signal degradation
-signalDegradation = 10 * math.log10(initialSignalStrength / finalSignalStrength) 
-if -3 < signalDegradation < 0:
-    signalStatus = "Minimal"
-elif -10 < signalDegradation <= -3:
-    signalStatus = "Moderate"
-elif -10 <= signalDegradation < -20:
-    signalStatus = "Severe"
+if finalSignalStrength == 0:
+    signalDegradation = float(-999999)  # Avoid division by zero
+    signalStatus = "Undefined"
 else:
-    signalStatus = "Critical"
+    signalDegradation = 10 * math.log10(initialSignalStrength / finalSignalStrength) 
+    if -3 < signalDegradation < 0:
+            signalStatus = "Minimal"
+    elif -10 < signalDegradation <= -3:
+        signalStatus = "Moderate"
+    elif -10 <= signalDegradation < -20:
+        signalStatus = "Severe"
+    else:
+        signalStatus = "Critical"
 
 # ------------------ Part 5: Beacon Report ----------------------------
 # TODO: Print beacon report
-print("=" * 40)
-print(f"{BEACON_ID} Beacon Report".center(40))
-print("=" * 40)
-print(f"  Technician:{INTERN:>25}")
-print(f"  Employee ID:{INTERNID:>23}")
-print("=" * 40)
-print(f"  Drift Angle:{driftAngle:>24.3f} deg")
-print(f"  Drift Status:{driftStatus.upper():>22}")
-print("=" * 40)
-print(f"  Signal Degradation:{signalDegradation:>18.4f} dB")
-print(f"  Signal Status:{signalStatus.upper():>21}")
-print("=" * 40)
+print("=" * 72)
+print(f"{BEACON_ID} Beacon Report".center(72))
+print("=" * 72)
+print(f"Technician: {INTERN:>60}")
+print(f"Employee ID: {INTERNID:>59}")
+print("=" * 72)
+print(f"Drift Angle: {driftAngle:>55.3f} deg")
+print(f"Drift Status: {driftStatus:>58}")
+print("=" * 72)
+print(f"Signal Degradation: {signalDegradation:>49.4f} dB")
+print(f"Signal Status: {signalStatus:>57}")
+print("=" * 72)
 
 # ------------------ Part 6: Closing Narrative ----------------------------
 # TODO: Display 2-3 sentences wrapping up the lab story
@@ -123,3 +130,6 @@ print("Analysis complete. Beacon data has been logged and reported to the Servic
 print("Orbitals and Galatic War Maps are coming back online and functioning within normal " \
 "parameters.")
 print(f"Good work, intern {INTERN}. You have successfully aided managed democracy.")
+print("Victory was never in doubt.")
+print("FOR SUPER EARTH!!!")
+print("End of Report.")
