@@ -1,0 +1,266 @@
+You and your digitized duck assistant sit across from each other. QUACK's status
+light flickers like it's about to deliver news no one wants.
+
+You: QUACK, it is about time you tell me about Lyra Tessel.
+
+QUACK: Lyra was one of Halcyon Interstellar's top researchers—brilliant, obsessive,
+and increasingly convinced she should control the entire beacon network. When the
+company shut down her "traffic optimization" experiments, she disappeared before
+security reached her lab. Since then, she’s been manipulating beacons with a level
+of precision that suggests she's been preparing for this for years.
+
+You: And she wants C.K.?
+
+QUACK: When she was fired, her A.I. work was split apart and buried in other projects.
+She's been recovering the fragments one by one. C.K. is one of the last pieces she
+needs, and she's pursuing it with a focus that makes the network… uneasy.
+
+Our escape from the beacon station was luck. Lyra is flooding the system with
+forged IDs. We have to find her and stop her. We need to filter the signal.
+
+An ID can be valid, invalid, spoofed or corrupt. If an ID fails our validation logic,
+it's a spoof and may indicate where Lyra is hiding. Let's organize the IDs into lists
+and build functions to sort out what's real before she gets any closer.1
+
+
+🎯 Learning Objectives:
+
+In this lab adventure, you will get experience using functions and lists to streamline your programming.
+
+You will process a list of captured IDs and will validate whether they are valid, invalid, spoofed or corrupt.
+
+    Write custom functions that return one or more values
+    Document every function fully with docstrings
+    Build lists of valid, invalid, spoofed and corrupt ids, sort and count these
+    Complete this assignment without the use of:
+        Dictionaries/Sets
+        Try/Except
+        Other libraries not discussed
+
+
+🛠 Assignment Instructions
+1. Header and imports
+
+    Include the names of all partners in the header
+
+        Describe your programming contributions
+        For Example: Partner 1 wrote the opening narrative, formatted the output table, tested the input validation while loops and helped troubleshoot an infinite loop caused by a wrong boolean expression in the ship railing.
+
+    Import any libraries you might need AFTER the header
+
+    Put any constants that you will need throughout the lab
+        Make these ALLCAPS
+        A list of test ids is included for you as TEST_SIGNALS
+        The captured signal from Lyra is in INTERCEPTED_SIGNALS
+
+2. Function Definitions
+
+In this section you will write all of the function definitions that you will use in this lab adventure to validate the id. Make your function names, the parameters and returns match the function specification exactly.
+
+RECALL from Lab 1: That a valid ID is {sectornum}{4 digit tempid}{sectornum}{reverse tempid}{checksum}
+
+
+2A. is_number function
+This function will determine if a string is all numbers or not
+
+    Parameter: id as a string
+    Return: True if string is all digits, False if not
+
+
+2B. is_correct_len function
+This function will determine if a string's length is the same as a parameter. Will return whether the length is correct, too long or too short.
+
+    Parameter: id as a string, correct length
+    Return: a string - "correct", "short", "long"
+
+
+
+2C. is_valid_sector function
+This function will determine if the sector number appears twice in the id in the correct location.
+
+    Parameter: id as a string
+    Return: True if valid, False if not
+
+
+
+2D. is_valid_tempid function
+This function will determine if the 4 digit tempid in the id number is equal to the reversed four digits.
+
+    Parameters: id as a string
+    Return: True if valid, False if not
+
+
+
+2E. is_valid_checksum function
+This function will determine if final character of the id is a valid checksum. Recall that the checksum is the sum of the first 10 digits mod 10.
+
+    Parameters: id as a string
+    Return:
+        If valid: True, calculated checksum
+        If invalid: False, calculated checksum
+
+
+
+2F. is_valid_id function
+This function uses the helper functions above to determine if an id is valid.
+
+    Parameters: id as a string
+    Return:
+        It will return whether it is valid or not. If it is valid it returns the valid checksum.
+        If not, it will return the reason why not.
+            Reasons are limited to:
+                "non-numeric"
+                "too short"
+                "too long"
+                "invalid tempid"
+                "invalid sectors"
+                "invalid checksum"
+
+
+
+3. Main Code
+
+You will be processing a captured signal to analyze the employee IDs inside. You are given a test set to make sure your functions are working correctly (TEST_SIGNALS). You know which ones are valid, invalid, spoofed or corrupt. You can use these individually or as a whole list.
+
+You are also given INTERCEPTED_SIGNALS that you need to process correctly. You do not know which ones are valid, invalid, spoofed or corrupt, so will have to trust your functions. In this set there will be:
+
+    7 valid ids
+    4 invalid ids (too long or short)
+    5 spoofed ids (bad temp id, sectors, or checksum)
+    3 corrupt ids (non-numeric)
+
+
+3A. Opening Narrative
+
+    Display a creative but brief introduction to this part of the story.
+    Must be at least 5 sentences
+
+
+3B. Process Signals
+Go through each id in INTERCEPTED_SIGNALS and call is_valid_id to determine whether it is valid or not and why.
+
+    Initialize 4 lists: valid_ids, invalid_ids, spoofed_ids, and corrupted_data
+
+    Add each id to the appropriate list:
+        Spoofed list contains ids of the correct length but with invalid sectors, temp ids or checksums
+        Invalid list contains ids that are too long or too short
+        Corrupt list contains ids that are non-numeric
+
+    Sort the spoofed and corrupted lists at the end
+
+
+
+3C. Display ID stats
+
+    Display the length of each id list.
+        This must be calculated, not hard-coded
+        Column must line up
+    Also display each of the spoofed ids sorted on the same line space separated
+        Use a loop to display this so it works with any length list
+
+
+
+3D. Display Corrupted IDs
+There is a message in the data signal.
+
+    Display the sorted corrupted list, each item on a different line
+        Use a loop to display this so it works with any length list
+
+
+
+3E. Closing Narrative
+
+    Display a brief but creative story ending
+    Must be at least 2-3 sentences
+
+🚀 Work quickly now. You have to stop Lyra.
+
+
+🧪 Example Runs
+
+Example run using TEST_SIGNALS list
+
+================================================================================
+    QUACK: 'Scanning complete! Let's see what we caught in the net.'
+    ================================================================================
+
+       ✅ VALID HIL IDs:    2
+       ❌ INVALID IDS:      2
+       👿 SPOOFED IDS:      3
+       ⚠️  CORRUPTED DATA:  1
+
+       🪪  Spoofed IDs: 10101010105 55555555551 91827364505
+
+    QUACK: Great tail-feathers! You found Lyra's fakes.
+    By isolating these spoofed IDs, we can trace the signal origin.
+
+    Wait... look at the corrupted data list.
+
+        SIGNAL_TEST
+
+
+
+Example run using INTERCEPTED_SIGNALS list
+
+================================================================================
+    QUACK: 'Scanning complete! Let's see what we caught in the net.'
+    ================================================================================
+
+       ✅ VALID HIL IDs:    7
+       ❌ INVALID IDS:      4
+       👿 SPOOFED IDS:      5
+       ⚠️  CORRUPTED DATA:  3
+
+       🪪  Spoofed IDs: 22424242420 34288387248 62345678905 88888888881 93699699638
+
+    QUACK: Great tail-feathers! You found Lyra's fakes.
+    By isolating these spoofed IDs, we can trace the signal origin.
+
+    Wait... look at the corrupted data list.
+
+
+        COMING_4YOU
+        C_K_IS_MINE
+        LYRA__GHOST
+
+     QUACK: 'She's taunting us!'
+
+
+
+📝 Submission Guidelines
+
+    Use the PyAdv04.py template file. You must use the template and DO NOT CHANGE THE FILENAME
+    You must work in groups of 2 and submit only 1 lab file for the group.
+    Ensure your code has commenting explaining the purpose of each section and what you are doing in your code.
+    Every function must have Docstrings
+    Follow all coding standards.
+    Do not add any code we have not covered so far - no dictionaries, sets, list comprehensions, try/except or other libraries we've not covered
+    Submit your program via the Assignment Dropbox in D2L by the due date.
+
+Coding Standard
+
+    Make sure you add the date your partners names to the comment header
+        Add each partner's contribution in detail (what, where, why, who)
+    At the top of your code after the header
+        Add any Imports
+        Constants come next. All constants are in CAPS
+    Function definitions come after the constants
+        All functions must have Docstrings
+    Add Comments to each section
+    Absolutely no line should exceed 99 characters wide.
+    Use blank lines to separate logical areas of the code.
+    Use descriptive variable and function names.
+    Put a space around every math operator
+        ex: x = 5 * 3 - 19 not x=5*3-19
+        ex: var = input('Name') not var=input("Name")
+
+Grading Criteria
+
+*Your code will be graded with an unknown dataset.*
+
+Your submission will be graded based on the following criteria:
+
+    Functionality (5 points): The program runs without errors and meets all requirements.
+    Code Quality (5 points): Code follows coding standards, is well-organized, includes comments/docstrings, does not go past 99 characters wide, and all math operators have a space around them
+    Mathematical Accuracy (5 points): Lists created accurately, sorted and counted.
+    Creativity (5 points): The narratives are engaging and creative. The encounters and clever.
