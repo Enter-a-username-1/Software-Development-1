@@ -8,13 +8,14 @@
   Partners:
   Name 1: Kael Secrest
   Detailed Contributions:
-      Wrote helper validation functions and built the ID classification loop.
-      Added formatted output sections and tested category counts with provided data.
+      Wrote the validation functions and the spots that ask for user input.
+      I also helped with the bug testing.
+      Finally I also wrote the closing stats (accuracy, shots fired, etc.) to match the real game.
 
-  Name 2: [Add Partner Name]
+  Name 2: William Rainey
   Detailed Contributions:
-      Add your partner's specific contributions before submission.
-
+      I wrote the main narrative text and helped with the formatting of the output. 
+      I also helped test the main code to ensure there were no bugs.
   Tips:
     1. Read the entire Lab PDF so you understand what you need to do.
     2. Be sure to use comments and follow our coding standards.
@@ -35,11 +36,9 @@
 # Imports.  Only import libraries if you are going to use them.
 import random
 
-
 # Constants.  Make sure they are ALLCAPS.
 INTERNNAME = "John Helldiver"
 CORRECT_ID_LEN = 11
-
 
 # 2 valid, 2 invalid, 3 spoofed, 1 corrupt
 TEST_SIGNALS = [
@@ -67,20 +66,15 @@ INTERCEPTED_SIGNALS = [
 ###################################################################################################
 # TODO: Implement functions with docstrings
 
-# Helper functions used to validate and classify IDs.
-
-
 # --- Function 2A: is_number Function ---
 
 def is_number(id_string):
     """
     Determine whether a supplied ID contains only numeric digits.
-
     Parameters:
-        id_string (str): The ID value to inspect.
-
+        id_string - The ID value to inspect.
     Returns:
-        bool: True if every character is numeric, otherwise False.
+        True if every character is numeric, otherwise False.
     """
     return id_string.isdigit()
 
@@ -90,20 +84,16 @@ def is_number(id_string):
 def is_correct_len(id_string, correct_length):
     """
     Compare an ID length to an expected length.
-
     Parameters:
-        id_string (str): The ID value to inspect.
-        correct_length (int): Required length of the ID.
-
+        id_string - The ID value to inspect.
+        correct_length - Required length of the ID.
     Returns:
-        str: "correct" when exact length, "short" when too short, or "long" when too long.
+        "correct" when exact length, "short" when too short, or "long" when too long.
     """
     if len(id_string) == correct_length:
         return "correct"
-
     if len(id_string) < correct_length:
         return "short"
-
     return "long"
 
 
@@ -111,13 +101,11 @@ def is_correct_len(id_string, correct_length):
 
 def is_valid_sector(id_string):
     """
-    Verify sector number appears in both required sector positions.
-
+    Verifies sector number appears in sector positions.
     Parameters:
-        id_string (str): The numeric ID value to inspect.
-
+        id_string - The numeric ID value to inspect.
     Returns:
-        bool: True if the sector digit at index 0 matches index 5, otherwise False.
+        True if the sector digit at index 0 matches index 5, otherwise False.
     """
     if len(id_string) < 6:
         return False
@@ -129,13 +117,11 @@ def is_valid_sector(id_string):
 
 def is_valid_tempid(id_string):
     """
-    Verify the first temp ID block mirrors the second temp ID block in reverse.
-
+    Verifies the first temp ID block mirrors the second temp ID block in reverse.
     Parameters:
-        id_string (str): The numeric ID value to inspect.
-
+        id_string - The numeric ID value to inspect.
     Returns:
-        bool: True if temp ID is mirrored correctly, otherwise False.
+        True if temp ID is mirrored correctly, otherwise False.
     """
     if len(id_string) < 10:
         return False
@@ -149,13 +135,11 @@ def is_valid_tempid(id_string):
 
 def is_valid_checksum(id_string):
     """
-    Validate checksum using sum of first 10 digits modulo 10.
-
+    Verifies the checksum using the sum of the first 10 digits.
     Parameters:
-        id_string (str): The numeric ID value to inspect.
-
+        id_string - The numeric ID value to inspect.
     Returns:
-        tuple: (True, calculated_checksum) if valid, else (False, calculated_checksum).
+        True if valid, else False.
     """
     running_total = 0
 
@@ -171,40 +155,27 @@ def is_valid_checksum(id_string):
 
 def is_valid_id(id_string):
     """
-    Determine whether an ID is valid and return either checksum or failure reason.
-
+    Determines whether an ID is valid and return either checksum or failure reason.
     Parameters:
-        id_string (str): The ID value to validate.
-
+        id_string - The ID value.
     Returns:
-        tuple:
-            (True, checksum) when ID is valid.
-            (False, reason) when ID is invalid.
-
-        Reasons are limited to:
-            "non-numeric", "too short", "too long",
-            "invalid tempid", "invalid sectors", "invalid checksum"
+        True when ID is valid.
+        False when ID is invalid.
     """
     if not is_number(id_string):
-        return False, "non-numeric"
-
+        return False, "string"
     length_result = is_correct_len(id_string, CORRECT_ID_LEN)
     if length_result == "short":
         return False, "too short"
-
     if length_result == "long":
         return False, "too long"
-
     if not is_valid_tempid(id_string):
         return False, "invalid tempid"
-
     if not is_valid_sector(id_string):
         return False, "invalid sectors"
-
     checksum_valid, checksum_value = is_valid_checksum(id_string)
     if not checksum_valid:
         return False, "invalid checksum"
-
     return True, checksum_value
 
 
@@ -215,22 +186,34 @@ def is_valid_id(id_string):
 # ------------------ Part 3A: Opening Narrative ----------------------------
 # TODO: simple 5 sentence opening
 
-
-# Opening narrative text.
-print("QUACK's status light flickers as the beacon panel fills with red warning markers.")
-print("I lean in and ask for the Lyra trace while static hisses through the channel.")
-print("QUACK flags multiple forged IDs and says the pattern looks intentional.")
-print("This is Helldiver-level signal triage: classify fast, strike faster.")
-print("For Super Earth, we clean this list before Lyra reaches C.K.")
+coward = False
+print(f"Dear Helldiver {INTERNNAME},")
+print("There had been a rise in forged IDs by the automatons.")
+print("The UGS had implemented a new validation tool for IDs.")
+print("Unfortuantly , the tool is on a machine on a contoled planet called Tibit.")
+print("Tibit recently became taken over by automatons"
+" and has become a major hotspot of battle.")
+print("We need you to analyze the intercepted IDs and classify them for us.")
 print()
-
+acceptMisson = input("PRESS Y TO ACCEPT THE MISSION ").upper()
+if acceptMisson != "Y":
+    print("Too bad you didn't have a choice")
+    coward = True
+print("LAUNCH INITIATED")
+print("When you land on Tibit you will have to find the machine and copy the code to" \
+" your Personal Hellpad system. Then you can run the code and analyze the intercepted IDs.")
+print("Good luck Helldiver")
+print()
+startCopy = input("You have made it to the machine, start copy (Y/N)?")
+while startCopy != "Y":
+    print("You have to copy the code to complete mission.")
+    startCopy = input("Start copy? (Y/N)").upper()
+print("Copying code and running analysis...")
 
 # ------------------ Part 3B: Test ID List ----------------------------
 # TODO: use functions above to test validity of each given ID
 # TODO: create valid_ids, spoofed_ids and corrupted_data lists
 
-
-# Process intercepted IDs and classify each one.
 valid_ids = []
 invalid_ids = []
 spoofed_ids = []
@@ -241,7 +224,7 @@ for signal_id in INTERCEPTED_SIGNALS:
 
     if is_valid:
         valid_ids.append(signal_id)
-    elif result == "non-numeric":
+    elif result == "string":
         corrupted_data.append(signal_id)
     elif result == "too short" or result == "too long":
         invalid_ids.append(signal_id)
@@ -256,19 +239,16 @@ corrupted_data.sort()
 # TODO: Display len of each list
 # TODO: Display sorted spoofed values
 
-
-# Display mission statistics.
-print("=" * 80)
-print("    QUACK: 'Scanning complete! Let's see what we caught in the net.'")
-print("=" * 80)
+print("=" * 100)
+print("The Personal Hellpad System has processed the " \
+"intercepted signals and classified them as follows:")
+print("=" * 100)
 print()
-
 print(f"   ✅ VALID HIL IDs:    {len(valid_ids):>2}")
 print(f"   ❌ INVALID IDS:      {len(invalid_ids):>2}")
 print(f"   👿 SPOOFED IDS:      {len(spoofed_ids):>2}")
 print(f"   ⚠️  CORRUPTED DATA:  {len(corrupted_data):>2}")
 print()
-
 print("   🪪  Spoofed IDs: ", end="")
 for spoofed_id in spoofed_ids:
     print(spoofed_id, end=" ")
@@ -279,12 +259,23 @@ print()
 # ------------------ Part 3D: Display Corrupted IDs ----------------------------
 # TODO: Display corrupted IDs as part of narrative
 
+print("RETURN TO THE PELICAN FOR EXTRACTION")
+sideMission = input("Do you decide to do side mission of launch ICBM (Y/N)?").upper()
+if sideMission == "Y":
+    print("Launching ICBM...")
+    print("The ICBM has been launched and is on its way to the target.")
+    print("(Explosion sound effect)")
+    print("The explosion has caused a shockwave that has disrupted the automaton's communication systems.")
+    print("This has given us a temporary advantage in the battle for Tibit.")
 
-# Display corrupted IDs one per line.
-print("QUACK: Great tail-feathers! You found Lyra's fakes.")
-print("By isolating these spoofed IDs, we can trace the signal origin.")
+if coward == True:
+    print("Im suprised a coward like you made it this far, but here we are.")
+else:
+    print("Congratulations on making it this far, " \
+    "but now we have to deal with the corrupted data.")
+print("By lining up these spoofed IDs, we can see a message being written out.")
 print()
-print("Wait... look at the corrupted data list.")
+print("The automotons are saying something.")
 print()
 
 for corrupted_id in corrupted_data:
@@ -296,8 +287,35 @@ print()
 # ------------------ Part 3E: Closing Narrative ----------------------------
 # TODO: simple 2-3 sentence closing
 
-
-# Short ending story text.
-print("QUACK: 'She's taunting us!'")
-print("I mark the spoof source and prep a hot drop like a Helldiver on final approach.")
-print("Lyra has a lead, but now we have her trail.")
+print("Who the hell(diver) is Lyra and why is she a ghost?")
+print()
+print("=" * 100)
+if coward == True:
+    if sideMission == "Y":
+        print("MISSION COMPLETE")
+        print("⭐⭐")
+        print("Disgraceful conduct")
+    else:
+        print("MISSION COMPLETE")
+        print("⭐")
+        print("Cowardly conduct")
+else:
+    if sideMission == "Y":
+        print("MISSION COMPLETE")
+        print("⭐⭐⭐⭐")
+        print("Heroic conduct")
+    else:
+        print("MISSION COMPLETE")
+        print("⭐⭐⭐")
+        print("Brave conduct")
+print(f"Kills: {random.randint(0, 1000)}")
+print(f"Accuracy: {random.randint(20, 60)}%")
+print(f"Shots fired: {random.randint(500, 1000)}")
+print(f"Shots hit: {random.randint(0, 500)}")
+print(f"STIMS used: {random.randint(0, 26)}")
+print(f"Accidentals: {random.randint(0, 15)}")
+print(f"Samples Extracted: {random.randint(0, 100)}")
+print(f"Stratagems used: {random.randint(0, 50)}")
+print(f"Melee kills: {random.randint(0, 23)}")
+print(f"Friendly fire damage dealt: {random.randint(0, 1000)}")
+print("=" * 100)
