@@ -265,7 +265,8 @@ if sideMission == "Y":
     print("Launching ICBM...")
     print("The ICBM has been launched and is on its way to the target.")
     print("(Explosion sound effect)")
-    print("The explosion has caused a shockwave that has disrupted the automaton's communication systems.")
+    print("The explosion has caused a shockwave that has disrupted" \
+    " the automaton's communication systems.")
     print("This has given us a temporary advantage in the battle for Tibit.")
 
 if coward == True:
