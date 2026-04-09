@@ -8,12 +8,15 @@
   Partners:
   Name 1: Kael Secrest
   Detailed Contributions:
-      
+      Wrote the code to caulculate the rates of spoofed and output the results.
+      I also wrote the function code.
+      I also tested the code for bugs.
  
   Name 2: William Rainey
   Detailed Contributions:
-      I wrote the main narrative text and helped with the formatting of the output.
-      I also helped test the main code to ensure there were no bugs.
+      I wrote the main text for the story.
+      I also wrote the code that reads the data from the file.
+      I also helped test the code to ensure there were no bugs.
  
 """
  
@@ -44,31 +47,29 @@ INTERNNAME = "John Helldiver"
 ###################################################################################################
 def read_numpy_data(filename):
     """
-    ---- PROVIDED BY PROFESSOR - DO NOT MODIFY ----
-    This function reads a data file into a 1D NumPy array of ints.
- 
-    Parameter:
-        filename (str): path/name of the file to read
- 
+    ---- PROVIDE BY PROFESSOR - DO NOT MODIFY ----
+    This function reads data file into a 1D NumPy array of ints
+    Parameter: 
+        str -> filename
     Return:
-        nd array of ints, or None if an error occurs
- 
+        nd array of ints or None if an error occurs
     Example:
         myarray = read_numpy_data('mydata.raw')
     """
     import os
- 
-    # Change directory to same location as the program save location
+
+    # change directory to same as the program save location
     try:
-        # Works for .py files
+        # works for py files
         os.chdir(os.path.dirname(__file__))
- 
+        
     except Exception as e:
-        # If error, try Jupyter notebook method
+        # if error, try Jupyter notebook method
         print(f"   Error: {e}.  Trying Jupyter notebook method")
+        
         os.chdir(os.path.dirname(globals()["__vsc_ipynb_file__"]))
- 
-    # Load data from filename into numpy array
+
+    # load data from filename into numpy array
     try:
         array = np.loadtxt(filename, dtype='int')
         print(f"{filename} successfully read into NumPy array")
@@ -80,6 +81,8 @@ def read_numpy_data(filename):
  
  
 # ------------------ Part 2B: plot_signals function ----------------------------
+# TODO: write function to plot spoof_rate, invalid_rate, corrupt_rate
+# besure to include title, x/y labels, legend, grid 
 def plot_signals(spoof_rate, invalid_rate, corrupt_rate):
     """
     Plots the spoofed, invalid, and corrupt ID rates across all sectors
@@ -96,10 +99,9 @@ def plot_signals(spoof_rate, invalid_rate, corrupt_rate):
     Example:
         plot_signals(spoof_rate, invalid_rate, corrupt_rate)
     """
-    # Build an array of sector numbers for the x-axis
+
     sectors = np.arange(NUM_SECTORS)
  
-    # Create the figure and plot each rate as a separate line
     plt.figure(figsize=(10, 6))
  
     plt.plot(sectors, spoof_rate,   marker='o', label='Spoof Rate (%)',   color='crimson')
@@ -123,80 +125,76 @@ def plot_signals(spoof_rate, invalid_rate, corrupt_rate):
 ###################################################################################################
  
 # ------------------ Part 3A: Opening Narrative ----------------------------
-# 5-sentence Helldivers-themed opening
+# TODO: simple 5 sentence opening
  
 print(f"""
 {'=' * 80}
-   SUPER EARTH HELLDIVER INTELLIGENCE DIVISION -- CLASSIFIED BRIEFING
+   SUPER EARTH HELLDIVER DIVISION BRIEFING
 {'=' * 80}
  
-Helldiver {INTERNNAME}, your boots are barely dry from the last op on Tibit,
-but Super Earth needs you again this time the mission is data, not bullets.
- 
-Our signals analysts have intercepted millions of HIL beacon IDs flooding in
-from every sector of the galaxy, and something is very wrong with the numbers.
- 
+Dear Helldiver {INTERNNAME}, thanks for your help back on Tibit,
+However, Super Earth needs you to crunch data.
+The GIS have intercepted millions of HIL beacon IDs flooding in
+from every sector of the galaxy, and something is very wrong with all the numbers.
 The automaton sympathizer known only as Lyra has been flooding the network with
-spoofed IDs, but one sector is suspiciously quiet -- and silence on the
+spoofed IDs, but one sector is suspiciously quiet and silence on the
 battlefield always means someone is hiding.
+Your Hellpad has been loaded with the raw intercept files; all you
+need to do is run the analysis and find the sector so we can drop in and
+find whoever Lyra is so they can face Managed Democracy.
  
-Your Personal Hellpad has been loaded with the raw intercept files; all you
-need to do is run the analysis and pinpoint the sector so we can drop in and
-drag Lyra back to face Managed Democracy.
- 
-For Super Earth, Helldiver. Do not miss.
+For Super Earth.
 {'=' * 80}
 """)
  
  
 # ------------------ Part 3B: Call the Read Data Function ----------------------------
-print("Downloading intercept data to Personal Hellpad...\n")
+# TODO: Read sector and status data from raw files using provided read_numpy_data function
+print("Downloading data to Hellpad...\n")
 
-# --- Use test files first; swap to real files once results match ---
-sector_data = read_numpy_data('test_sectordata.raw')   # change to 'sectordata.raw' for real data
-status_data = read_numpy_data('test_statusdata.raw')   # change to 'statusdata.raw' for real data
+sector_data = read_numpy_data('sectordata.raw')
+status_data = read_numpy_data('statusdata.raw')
 
-# Stop here if either file failed to load
+# If either file failed to load
 if sector_data is None or status_data is None:
     print()
-    print("MISSION ABORT: Data files could not be loaded.")
-    print("Make sure the .raw files are in the same folder as PyAdv05.py")
+    print("MISSION ABORT: Data files could not be loaded. We have failed Super Earth.")
     quit()
 
 print()
  
  
 # ------------------ Part 3C: Calculate rates  ----------------------------
-# Count total IDs per sector (0-9) using np.bincount
+# TODO: Count total IDs per sector (0–9) using np.bincount
+# Count spoofed, invalid and corrupt IDs per sector using np.bincount
+# Compute spoofed, invalid, corrupt rate per sector as a percentage ie: spoofrate = spoofid / total
+
 total_per_sector = np.bincount(sector_data, minlength=NUM_SECTORS)
+
+invalid_per_sector = np.bincount(sector_data[status_data == INVALID_ID], minlength=NUM_SECTORS)
+spoofed_per_sector = np.bincount(sector_data[status_data == SPOOFED_ID], minlength=NUM_SECTORS)
+corrupt_per_sector = np.bincount(sector_data[status_data == CORRUPT_ID], minlength=NUM_SECTORS)
  
-# Count each status type per sector using np.bincount with a sector slice
-invalid_per_sector = np.bincount(sector_data[status_data == INVALID_ID],
-                                 minlength=NUM_SECTORS)
-spoofed_per_sector = np.bincount(sector_data[status_data == SPOOFED_ID],
-                                 minlength=NUM_SECTORS)
-corrupt_per_sector = np.bincount(sector_data[status_data == CORRUPT_ID],
-                                 minlength=NUM_SECTORS)
- 
-# Compute the rate (%) of each status type per sector
+# Figure the percent of each status type per sector
 invalid_rate = 100 * (invalid_per_sector / total_per_sector)
 spoof_rate   = 100 * (spoofed_per_sector / total_per_sector)
 corrupt_rate = 100 * (corrupt_per_sector / total_per_sector)
  
  
 # ------------------ Part 3D: Plot all 3 rates ----------------------
-# Call the plotting function with the three computed rate arrays
+# TODO: call the function to plot spoofed rate, invalid rate, corrupt rate
 plot_signals(spoof_rate, invalid_rate, corrupt_rate)
  
  
 # ------------------ Part 3E: Display statistics ----------------------
-# Compute overall totals for display
+# TODO: display the IDs analyzed and number of spoofed, invalid and corrupt ids
+# display the mean, standard deviation, min, min location, max and max location of the spoofed ids
 total_ids   = len(sector_data)
 total_inv   = np.sum(status_data == INVALID_ID)
 total_spoof = np.sum(status_data == SPOOFED_ID)
 total_corr  = np.sum(status_data == CORRUPT_ID)
  
-# Compute spoof rate statistics
+# Compute spoof rate stats
 spoof_mean       = np.mean(spoof_rate)
 spoof_std        = np.std(spoof_rate)
 spoof_min        = np.min(spoof_rate)
@@ -204,7 +202,7 @@ spoof_max        = np.max(spoof_rate)
 spoof_min_sector = np.argmin(spoof_rate)
 spoof_max_sector = np.argmax(spoof_rate)
  
-# Round the spoof rate array to 2 decimals for cleaner display
+# Round the spoof rate
 spoof_display = np.round(spoof_rate, 2)
  
 # Display the results table
@@ -226,41 +224,29 @@ print()
  
  
 # ------------------ Part 3F: Closing Narrative ----------------------------
-# Check if the minimum spoof rate matches the known correct value and display
-# the appropriate Helldivers-themed ending
+# TODO: check to see if the min spoof rate value is correct and display the
+# appropriate simple 2-3 sentence closing
  
 if round(spoof_min, 8) == CORRECT_MIN:
-    # --- Correct result: real data was used ---
+    #Gets a correct result
     print(f"""
-        [The graph stabilizes. One sector flatlines far below the rest.]
+        Sector {spoof_min_sector} has the lowest spoof rate.
+        That must be Lyra.
+        She is hiding in Sector {spoof_min_sector}. Get in your ship
+        You are going to sector {spoof_min_sector} to find her and end this.
+        Good luck, {INTERNNAME}. You are going to need to beat her.
+        It is necissary in order to change the tide of the war with the automatons.
  
-        {INTERNNAME}: Sector {spoof_min_sector} has the lowest spoof rate, sir.
- 
-        Command: ...There you are, Lyra.
- 
-            She is hiding in Sector {spoof_min_sector}. Grab your Hellpod.
-            We are going on a trip.
- 
-        You slam the beacon coordinates into your Stratagem terminal and
-        sprint to the drop bay. The Pelican's engines scream to life as
-        the nav-computer locks on Sector {spoof_min_sector}.
- 
-        Lyra does not know it yet -- but the next thing she will hear
-        is the sound of a Hellpod punching through her roof.
- 
-        FOR SUPER EARTH.
+        For Super Earth.
     """)
  
 else:
-    # --- Incorrect result: still using test data or math error ---
+    #Doesnt get a correct result
     print(f"""
-        Command: Stand down, {INTERNNAME}. Your numbers are wrong.
- 
-        Are you sure that is the correct lowest spoofed ID rate?
-        I thought it was closer to {CORRECT_MIN}%
- 
-        Ah...you must still be using the test data.
- 
-        Try again and this time, use the real intercept files I gave you.
-        Super Earth did not train you to guess -- get it right.
+        {INTERNNAME} Your numbers seem off.
+        Are you sure that is the correct lowest spoofed ID rate
+        It was supposed to be closer to {CORRECT_MIN}%
+        Try again and this time, use different data that just came in.
+        We don't make wrong guesses in Managed Democracy.
+        For Super Earth.
     """)
