@@ -134,15 +134,13 @@ print(f"""
  
 Dear Helldiver {INTERNNAME}, thanks for your help back on Tibit,
 However, Super Earth needs you to crunch data.
-The GIS have intercepted millions of HIL beacon IDs flooding in
-from every sector of the galaxy, and something is very wrong with all the numbers.
-The automaton sympathizer known only as Lyra has been flooding the network with
-spoofed IDs, but one sector is suspiciously quiet and silence on the
-battlefield always means someone is hiding.
-Your Hellpad has been loaded with the raw intercept files; all you
-need to do is run the analysis and find the sector so we can drop in and
-find whoever Lyra is so they can face Managed Democracy.
- 
+The GIS have intercepted millions of HIL beacon IDs flooding in from every sector of the galaxy.
+The automaton known as Lyra has been filling the network with spoofed IDs except in one sector
+We think this one sector may be where Lyra is hiding, and we need to find her.
+Your Hellpad has been loaded with the raw intercept files all you
+have to do is run the analysis and find the sector so we can find whoever Lyra is 
+so they can face Managed Democracy.
+
 For Super Earth.
 {'=' * 80}
 """)
