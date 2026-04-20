@@ -1,0 +1,5 @@
+item,index,num
+bath soap,004,6
+sponge,042,14
+toothbrush,071,3
+tissues,013,18
