@@ -7,12 +7,15 @@
 
   Partners:
   Name 1: Kael Secrest
-  Detailed Contributions:   
+  Detailed Contributions:
+  Wrote constants in part 1 and part 3 as well as writing to the log file
+  Helped with bug testing and suggestions for the story and taunts    
 
   Name 2: Will 
   Detailed Contributions: 
-   
-      
+  Wrote the story in parts 2 and suggestions for part 4
+  Wrote taunts txt file
+  Helped with bug testing    
       
   Tips:
     1. Start early. Come to the Help Sessions if you have problems
