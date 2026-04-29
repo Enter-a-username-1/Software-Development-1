@@ -1,0 +1,3 @@
+Behold the append, the kinder way to write
+It writes but does not
+write over what was previously written
