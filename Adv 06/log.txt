@@ -1,0 +1,9 @@
+NEW GAME - Turns left: 10 - Damage 0.0%
+1,2 - Turns left: 9 - Damage 0.0% - 2 adjacent
+3,4 - Turns left: 8 - Damage 0.0% - 1 adjacent
+5,6 - Turns left: 7 - Damage 0.0% - 1 adjacent
+9,5 - Turns left: 6 - Damage 0.0% - Lyra found
+Success: Turns left: 6 - Damage 0.0%
+NEW GAME - Turns left: 10 - Damage 0.0%
+9,5 - Turns left: 9 - Damage 0.0% - Lyra found
+Success: Turns left: 9 - Damage 0.0%
